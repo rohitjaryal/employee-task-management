@@ -1,0 +1,4 @@
+export enum POSSIBLE_USER_TYPE {
+  "EMPLOYEE" = "EMPLOYEE",
+  "ADMIN" = "ADMIN",
+}
