@@ -6,7 +6,13 @@ screenshots/
 In services:
 
 1. Run `node generatePublicNPrivateKeys.js` This will generate public and private keys required for JSON token
-2. Setup env file with two values FIREBASE_SECRET_ACCOUNT_FILE which is name of json file and 'BASE_FROM_NUMBER' which is Twilio registered number.
+2. Setup .env file with these values 
+     -FIREBASE_SECRET_ACCOUNT_FILE=
+     -BASE_FROM_NUMBER=
+     -TWILIO_ACCOUNT_SID=
+     -TWILIO_AUTH_TOKEN=
+     -template_id= // from send grid
+     -fromEmail=
 
 
 
