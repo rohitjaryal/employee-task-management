@@ -6,13 +6,13 @@ import { useLocation } from "react-router-dom";
 
 type LayoutProviderProps = { children: ReactNode };
 
-const authRoutes = ["/login", "verify-employee"];
+const authRoutes = ["/login", "/verify-employee"];
 
 export default function LayoutProvider({ children }: LayoutProviderProps) {
   const location = useLocation();
   return (
     <div>
-      {!authRoutes.includes(location.pathname) ? (
+      {authRoutes.includes(location.pathname) ? (
         children
       ) : (
         <Flex>
