@@ -1,7 +1,7 @@
-import { Application } from "express";
 import passport from "passport";
 import { Server } from "socket.io";
-import { randomUUID } from "crypto";
+import { v4 as uuidv4 } from "uuid";
+
 require("dotenv").config();
 
 const http = require("http");
@@ -20,8 +20,9 @@ const io = new Server(server, {
   },
 });
 const { InMemorySessionStore } = require("./sessionStore");
+const { InMemoryMessageStore } = require("./messageStore");
 const sessionStore = new InMemorySessionStore();
-import { v4 as uuidv4 } from "uuid";
+const messageStore = new InMemoryMessageStore();
 
 io.use((socket: any, next) => {
   const sessionID = socket.handshake.auth.sessionID;
@@ -39,6 +40,7 @@ io.use((socket: any, next) => {
   if (!username) {
     return next(new Error("invalid username"));
   }
+
   socket.sessionID = uuidv4();
   socket.userID = uuidv4();
   socket.username = username;
@@ -64,6 +66,16 @@ io.on("connection", (socket: any) => {
 
   // fetch existing users
   const users: any[] = [];
+  const messagesPerUser = new Map();
+  messageStore.findMessagesForUser(socket.userID).forEach((message: any) => {
+    const { from, to } = message;
+    const otherUser = socket.userID === from ? to : from;
+    if (messagesPerUser.has(otherUser)) {
+      messagesPerUser.get(otherUser).push(message);
+    } else {
+      messagesPerUser.set(otherUser, [message]);
+    }
+  });
   sessionStore.findAllSessions().forEach((session: any) => {
     users.push({
       userID: session.userID,

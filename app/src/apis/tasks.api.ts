@@ -9,4 +9,13 @@ async function getAllTasksForEmployee() {
   return parseResponse(await fetchRequest.post("/get-tasks"));
 }
 
-export { getAllTasksForEmployee, getAllTasksForAllEmployees };
+async function createTask(taskName: string, employeeId: string) {
+  return parseResponse(
+    await fetchRequest.post("/create-task", {
+      taskName,
+      employeeId,
+    }),
+  );
+}
+
+export { getAllTasksForEmployee, getAllTasksForAllEmployees, createTask };

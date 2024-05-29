@@ -46,8 +46,8 @@ async function sendVerificationEmail(email: string, accessCode: string) {
         from: fromEmail,
         from_name: "Employee Task manager",
       },
-      to: "recipient@foo.com",
-      channel: email,
+      to: email,
+      channel: "email",
       customCode: accessCode,
     })
     .then((verification: any) => console.log(verification.sid))
@@ -76,13 +76,6 @@ async function updateEmployee(
   return updateEmployeeByEmployeeId(employeeId, address, name, role);
 }
 
-async function sendAccessCodeEmployee(email: string) {
-  const accessCode = generateCode();
-  await saveAccessCode(email, accessCode);
-  // send access code by email
-  //
-}
-
 async function onboardEmployee(
   employeeId: string,
   accessCode: string,
@@ -90,17 +83,11 @@ async function onboardEmployee(
   password: string,
 ) {
   await validateAccessCode(employeeId, accessCode);
-
   await setupUserNameAndPassword(employeeId, userName, password);
-
-  // 3. mark status of employee as Active
-  // return updateEmployeeByEmployeeId(employeeId, address, name, role);
 }
 
 async function loginEmployee(userName: string, password: string) {
-  // 1. validate username n password
   return validateUser(userName, password);
-  // 2. create json web token and send it to client as cookie
 }
 
 export {

@@ -18,7 +18,6 @@ api.use(
 
 api.use(express.json());
 api.use(cookieParser());
-// api.use(interceptRouter);
 api.use(userRouter);
 api.use(employeeRouter);
 api.use(tasksRouter);

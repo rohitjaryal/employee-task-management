@@ -7,33 +7,6 @@ export const fetchRequest = axios.create({
   withCredentials: true,
 });
 
-// fetchRequest.interceptors.request.use(
-//     (config) => {
-//         const loaderStore = useLoaderStore();
-//
-//         loaderStore.isLoading = true;
-//         return config;
-//     },
-//     (error) => {
-//         console.error(error);
-//         return Promise.reject(error);
-//     }
-// );
-//
-//------starts
-// fetchRequest.interceptors.response.use(
-//   (response) => {
-//     return response.data?.data;
-//   },
-//   (error) => {
-//     if (error.response.status === 401) {
-//       alert("User not logged in.");
-//     }
-//     return Promise.reject(error.message);
-//   },
-// );
-//------ends
-//
 fetchRequest.defaults.headers.common["Authorization"] =
   window.localStorage.getItem("token");
 

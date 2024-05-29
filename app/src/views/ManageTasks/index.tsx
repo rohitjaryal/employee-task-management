@@ -1,5 +1,5 @@
 import { Box, Center, Container, Divider, Title } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Employee } from "@/types";
 import { IconListCheck } from "@tabler/icons-react";
 import { ManageTaskTable } from "@cmp/ManageTaskTable";

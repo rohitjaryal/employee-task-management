@@ -6,18 +6,6 @@ const crypto = require("crypto");
 const jsonwebtoken = require("jsonwebtoken");
 const pathToKey = path.join(__dirname, "../..", "id_rsa_priv.pem");
 const PRIVATE_KEY = fs.readFileSync(pathToKey, "utf8");
-
-const isAuthRequest = (url: string) => {
-  return url?.indexOf("/auth", 0) !== -1;
-};
-
-const validateToken = (token: string) => {
-  return jwt.verify(token, process.env.TOKEN_KEY);
-};
-// function generateCode() {
-//   return Math.floor(Math.random() * 89999 + 10000);
-// }
-
 function getTemplateResponse(content: string, isSuccess: boolean) {
   let response;
   if (isSuccess) {
@@ -80,8 +68,6 @@ function issueJWT(user: { _id: string }) {
 export {
   getTemplateResponse,
   generateCode,
-  isAuthRequest,
-  validateToken,
   genHashedPassword,
   validatePassword,
   issueJWT,

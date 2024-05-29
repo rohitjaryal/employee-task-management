@@ -2,7 +2,7 @@ import { Box, Center, Container, Divider, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { Employee } from "@/types";
 import { ManageEmployeeTable } from "@cmp/ManageEmployeeTable";
-import { IconActivityHeartbeat, IconDeviceLaptop } from "@tabler/icons-react";
+import { IconDeviceLaptop } from "@tabler/icons-react";
 import { getAllEmployees } from "@/apis/employees.api.ts";
 
 export default function ManageEmployee() {

@@ -1,8 +1,9 @@
-import { POSSIBLE_USER_TYPE } from "@/utils/constants.ts";
-
-const TOKEN_KEY = "token";
-const USER_TYPE_KEY = "user_type";
-const USER_INFO_KEY = "user_info";
+import {
+  POSSIBLE_USER_TYPE,
+  TOKEN_KEY,
+  USER_INFO_KEY,
+  USER_TYPE_KEY,
+} from "@/utils/constants.ts";
 
 export const useStorage = () => {
   function setToken(value: string) {

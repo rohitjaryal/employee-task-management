@@ -100,7 +100,6 @@ async function deleteEmployeeRequest(req: Request, res: Response) {
 async function sendAccessCodeEmployeeRequest(req: Request, res: Response) {
   try {
     const { email } = req.body;
-    // const accessCode=generateCode();
     const response = await saveAccessCode(email, "employeeId");
     return res.status(200).json(
       getTemplateResponse(
@@ -116,10 +115,6 @@ async function sendAccessCodeEmployeeRequest(req: Request, res: Response) {
       .status(500)
       .json(getTemplateResponse("Unable to delete employee", false));
   }
-}
-
-async function validateAccessCodeEmployeeRequest(req: Request, res: Response) {
-  const { email, accessCode } = req.body;
 }
 
 async function updateEmployeeRequest(req: Request, res: Response) {
@@ -194,7 +189,6 @@ export {
   createEmployeeRequest,
   deleteEmployeeRequest,
   sendAccessCodeEmployeeRequest,
-  validateAccessCodeEmployeeRequest,
   getAllEmployeeRequest,
   updateEmployeeRequest,
   validateEmployeeAndMarkAsActiveRequest,

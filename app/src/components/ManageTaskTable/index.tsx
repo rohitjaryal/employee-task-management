@@ -10,6 +10,7 @@ import {
 import { useStorage } from "@/hooks/useStorage.ts";
 import { UpdateTask } from "@cmp/UpdateTask";
 import { CreateTask } from "@cmp/CreateTask";
+import { createTask } from "@/apis/tasks.api.ts";
 
 type UsersTableProps = {
   data: Employee[];
@@ -50,15 +51,10 @@ export function ManageTaskTable({ data, onRefresh }: UsersTableProps) {
     }
   }
 
-  async function handleCreate(
-    email: string,
-    name: string,
-    role: string,
-    address: string,
-    phoneNumber: string,
-  ) {
+  async function handleCreate(taskName: string) {
     try {
-      await createEmployee(email, name, role, address, phoneNumber);
+      const employeeId = editDialogProps.employeeId;
+      await createTask(taskName, employeeId);
       closeCreateDialog();
       onRefresh();
     } catch (err) {
@@ -173,7 +169,7 @@ export function ManageTaskTable({ data, onRefresh }: UsersTableProps) {
       />
       <AppDialog
         opened={createDialogOpened}
-        title={"Create"}
+        title={"Create task"}
         onClose={closeCreateDialog}
         children={<CreateTask onCreate={handleCreate} />}
       />
