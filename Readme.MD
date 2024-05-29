@@ -36,3 +36,8 @@ Server:
 5. Better exception handling and sending server codes to client.
 6. On web app, protect routes for admin/employees.
 7. Currently, no notifications on success/error on webapp
+
+
+![Alt text](screenshots/admin_login.png?raw=true "Login")
+![Alt text](screenshots/verify by email link.png?raw=true "Verify")
+![Alt text](screenshots/manage_employee.png?raw=true "Manage employee")
