@@ -62,6 +62,7 @@ function issueJWT(user: { _id: string }) {
   return {
     token: "Bearer " + signedToken,
     expires: expiresIn,
+    id: _id,
   };
 }
 

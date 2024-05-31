@@ -22,10 +22,10 @@ export default function EmployeeLogin() {
     try {
       const response = await loginEmployee(userName, password);
       setToken(response.token);
-      setUserType(POSSIBLE_USER_TYPE.EMPLOYEE);
       setUserInfo({
         userType: POSSIBLE_USER_TYPE.EMPLOYEE,
         userName: response.userName,
+        commonUserIdentifier: response.id,
       });
       navigate("/manage-employee");
     } catch (err) {
@@ -49,6 +49,7 @@ export default function EmployeeLogin() {
       setUserInfo({
         userType: POSSIBLE_USER_TYPE.ADMIN,
         userName: response.userName,
+        commonUserIdentifier: response.id,
       });
       navigate("/manage-employee");
     } catch (err) {

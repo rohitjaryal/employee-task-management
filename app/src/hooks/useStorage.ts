@@ -25,6 +25,7 @@ export const useStorage = () => {
     userName?: string;
     userId?: string;
     userType?: string;
+    commonUserIdentifier?: string;
   }) {
     const info = {
       ...data,
@@ -43,6 +44,9 @@ export const useStorage = () => {
   const isEmployee = getUserInfo()?.userType === POSSIBLE_USER_TYPE.EMPLOYEE;
   const isAdmin = getUserInfo()?.userType === POSSIBLE_USER_TYPE.ADMIN;
 
+  const userName = getUserInfo().userName;
+  const commonUserIdentifier = getUserInfo().commonUserIdentifier;
+
   return {
     setToken,
     getToken,
@@ -52,5 +56,7 @@ export const useStorage = () => {
     isAdmin,
     setUserInfo,
     getUserInfo,
+    userName,
+    commonUserIdentifier,
   };
 };
