@@ -45,7 +45,6 @@ export default function EmployeeLogin() {
     try {
       const response = await loginAdmin(phoneNumber, accessCode);
       setToken(response.token);
-      setUserType(POSSIBLE_USER_TYPE.ADMIN);
       setUserInfo({
         userType: POSSIBLE_USER_TYPE.ADMIN,
         userName: response.userName,

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Code, Group } from "@mantine/core";
 import {
   IconDeviceLaptop,
@@ -8,7 +7,7 @@ import {
 } from "@tabler/icons-react";
 import classes from "./index.module.css";
 import { useStorage } from "@/hooks/useStorage.ts";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const data = [
   {
@@ -21,20 +20,18 @@ const data = [
 ];
 
 export function NavbarSimpleColored() {
-  const [active, setActive] = useState("Manage Employee");
-
-  const { getUserType } = useStorage();
+  const { isEmployee } = useStorage();
 
   const navigate = useNavigate();
+  const location = useLocation();
   const links = data.map((item) => (
     <a
       className={classes.link}
-      data-active={item.label === active || undefined}
+      data-active={item.link === location.pathname ? "active" : undefined}
       href={item.link}
       key={item.label}
       onClick={(event) => {
         event.preventDefault();
-        setActive(item.label);
         navigate(item.link);
       }}
     >
@@ -43,12 +40,20 @@ export function NavbarSimpleColored() {
     </a>
   ));
 
+  const { deleteToken, deleteChatSession } = useStorage();
+
+  function handleLogout() {
+    deleteToken();
+    deleteChatSession();
+    navigate("/login");
+  }
+
   return (
     <nav className={classes.navbar}>
       <div className={classes.navbarMain}>
         <Group className={classes.header} justify="space-between">
           <Code fw={700} className={classes.version}>
-            User type: {getUserType()}
+            User type: {isEmployee ? "Employee" : "Admin"}
           </Code>
         </Group>
         {links}
@@ -58,7 +63,10 @@ export function NavbarSimpleColored() {
         <a
           href="#"
           className={classes.link}
-          onClick={(event) => event.preventDefault()}
+          onClick={(event) => {
+            handleLogout();
+            event.preventDefault();
+          }}
         >
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>

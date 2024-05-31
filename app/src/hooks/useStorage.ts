@@ -1,6 +1,7 @@
 import {
   POSSIBLE_USER_TYPE,
   TOKEN_KEY,
+  USER_CHAT_SESSION_KEY,
   USER_INFO_KEY,
   USER_TYPE_KEY,
 } from "@/utils/constants.ts";
@@ -12,13 +13,6 @@ export const useStorage = () => {
 
   function getToken() {
     return window.localStorage.getItem(TOKEN_KEY);
-  }
-  function setUserType(value: keyof typeof POSSIBLE_USER_TYPE) {
-    window.localStorage.setItem(USER_TYPE_KEY, value);
-  }
-
-  function getUserType() {
-    return window.localStorage.getItem(USER_TYPE_KEY);
   }
 
   function setUserInfo(data: {
@@ -47,16 +41,34 @@ export const useStorage = () => {
   const userName = getUserInfo().userName;
   const commonUserIdentifier = getUserInfo().commonUserIdentifier;
 
+  function deleteToken() {
+    window.localStorage.removeItem(TOKEN_KEY);
+  }
+
+  function deleteChatSession() {
+    window.localStorage.removeItem(USER_CHAT_SESSION_KEY);
+  }
+
+  function setChatSession(value: string) {
+    window.localStorage.setItem(USER_CHAT_SESSION_KEY, value);
+  }
+
+  function getChatSession() {
+    window.localStorage.getItem(USER_CHAT_SESSION_KEY);
+  }
+
   return {
     setToken,
     getToken,
-    setUserType,
-    getUserType,
     isEmployee,
     isAdmin,
     setUserInfo,
     getUserInfo,
     userName,
     commonUserIdentifier,
+    deleteToken,
+    deleteChatSession,
+    setChatSession,
+    getChatSession,
   };
 };

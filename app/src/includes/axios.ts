@@ -1,4 +1,5 @@
 import axios from "axios";
+import { TOKEN_KEY } from "@/utils/constants.ts";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -8,6 +9,6 @@ export const fetchRequest = axios.create({
 });
 
 fetchRequest.defaults.headers.common["Authorization"] =
-  window.localStorage.getItem("token");
+  window.localStorage.getItem(TOKEN_KEY);
 
 export default fetchRequest;
