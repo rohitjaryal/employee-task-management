@@ -40,11 +40,12 @@ export function NavbarSimpleColored() {
     </a>
   ));
 
-  const { deleteToken, deleteChatSession } = useStorage();
+  const { deleteToken, deleteChatSession, deleteUserInfo } = useStorage();
 
   function handleLogout() {
     deleteToken();
     deleteChatSession();
+    deleteUserInfo();
     navigate("/login");
   }
 

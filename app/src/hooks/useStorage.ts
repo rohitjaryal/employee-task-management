@@ -57,6 +57,12 @@ export const useStorage = () => {
     window.localStorage.getItem(USER_CHAT_SESSION_KEY);
   }
 
+  const userType = getUserInfo()?.userType;
+
+  function deleteUserInfo() {
+    window.localStorage.removeItem(USER_INFO_KEY);
+  }
+
   return {
     setToken,
     getToken,
@@ -70,5 +76,7 @@ export const useStorage = () => {
     deleteChatSession,
     setChatSession,
     getChatSession,
+    userType,
+    deleteUserInfo,
   };
 };

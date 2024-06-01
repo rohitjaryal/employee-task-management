@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { useStorage } from "@/hooks/useStorage.ts";
+import { TOKEN_KEY } from "@/utils/constants.ts";
 
 const URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -13,10 +14,19 @@ export const useChatSocket = (
   const [selectedUser, setSelectedUser] = useState({ messages: [] });
   const [usernameAlreadySelected, setUsernameAlreadySelected] = useState(false);
 
-  const socketRef = useRef(io(URL, { autoConnect: false }));
-  const socket = socketRef.current;
+  const { getChatSession, setChatSession, deleteChatSession, userType } =
+    useStorage();
 
-  const { getChatSession, setChatSession, deleteChatSession } = useStorage();
+  const socketRef = useRef(
+    io(URL, {
+      autoConnect: false,
+      extraHeaders: {
+        authorization: `${window.localStorage.getItem(TOKEN_KEY)}`,
+        userType,
+      },
+    }),
+  );
+  const socket = socketRef.current;
 
   useEffect(() => {
     if (commonUserIdentifier) {

@@ -30,7 +30,7 @@ async function updateTask(
     .where("taskId", "==", taskId)
     .get();
   if (snapshot.empty) {
-    console.log("No matching documents.");
+    console.info("No matching documents.");
     return;
   }
 

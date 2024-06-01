@@ -47,4 +47,4 @@ Server:
 ![Alt text](screenshots/admin_login.png?raw=true "Login")
 ![Alt text](screenshots/verify_by_email_link.png?raw=true "Verify and onboard employee")
 ![Alt text](screenshots/manage_employee.png?raw=true "Manage employee")
-![Alt text](screenshots/chat_user.png?raw=true "Chat")
+![Alt text](screenshots/chat_conversation.png?raw=true "Chat conversation")

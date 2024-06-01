@@ -24,6 +24,27 @@ const sessionStore = new InMemorySessionStore();
 const { InMemoryMessageStore } = require("./messageStore");
 const messageStore = new InMemoryMessageStore();
 
+io.engine.use((req: any, res: any, next: any) => {
+  const isHandshake = req._query.sid === undefined;
+  const userType = req.headers.usertype;
+
+  if (!isHandshake) {
+    next();
+    return;
+  }
+  switch (userType) {
+    case "ADMIN":
+      passport.authenticate("admin-jwt", { session: false })(req, res, next);
+      break;
+    case "EMPLOYEE":
+      passport.authenticate("employee-jwt", { session: false })(req, res, next);
+      break;
+    default:
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Invalid userType" }));
+  }
+});
+
 io.use((socket: any, next: any) => {
   const sessionID = socket.handshake.auth.sessionID;
   if (sessionID) {
@@ -41,7 +62,6 @@ io.use((socket: any, next: any) => {
     return next(new Error("invalid username"));
   }
   socket.sessionID = uuidv4();
-  // socket.userID = uuidv4();
   socket.username = username;
   socket.userID = commonUserIdentifier;
   next();
